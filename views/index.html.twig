@@ -3,19 +3,21 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-	<div class="row">
+	<div class="row link">
 		{% for link in links %}
-			<div class="col-md-4">
-			    <h2><a class="linkTitle" href="{{ path('link', { 'id': link.id }) }}">{{ link.title }}</a></h2>
-			    <p>{{ link.desc }}</p>
-			    <a href="{{ link.url }}" title="" target="_blank">Open ></a>
-			    <em>(by {{ link.user.username }})</em>
-
-			    {% for tag in link.tags %}
-			    	<a href="{{ path('tag', { 'id': tag.id }) }}" title="Filtrer">
-			    		{{ tag.title }}
-			    	</a>
-			    {% endfor %}
+			<div class="col-lg-4 col-md-6 col-sm-12 d-grid gap-5 mb-5">
+			    <div class="card bg-light mh-50">
+                    <div class="card-body">
+                        <h1 class="fw-bold">{{ link.title }}</h1>
+                        <p><em>par <span> {{ link.user.username }}</span></em></p> 
+                        <a class="text-success" href="{{ link.url }}" target="_blank">Site Officiel</a> {% for tag in link.tags %}<a class="float-end text-danger" href="{{ path('tag', { 'id': tag.id }) }}" title="Filtrer"> {{ tag.title }}</a> <span class="float-end"> - </span> {% endfor %}</p>
+                        <hr>
+                        <p class="desc mt-3">{{ link.desc | truncate(50) }}</p>
+                        <a href="{{ path('link', { 'id': link.id }) }}">
+                            <button class="float-end btn btn-secondary">Lire plus <i class="bi bi-box-arrow-up-right"></i></button>
+                        </a>
+                    </div>
+                </div>
 			</div>
 		{% endfor %}
 	</div>
