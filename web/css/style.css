@@ -1,34 +1,52 @@
-body { 
-    padding-top: 100px; 
+
+h1 {
+    font-size: 1.8rem;
 }
 
-#logo{
-	width:230px;
-	height: 0;
-	display: block;
-	overflow: hidden;
-	padding-top: 76px;
-	font-size: 0;
-	background: url("../images/logo.png") no-repeat center center;
+.card-footer {
+    background: transparent;
+    border-top: 0px;
+  }
+
+.navbar-brand {
+    position: relative;
+    background: no-repeat center/100% url("../images/logo.png");
+    width: 115px;
+    height: 50px;
+    left: 10px;
+}
+
+.link {
+    margin-top: 5rem;
+}
+
+.link .desc {
+    text-align: justify;
 }
 
 .footer {
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
-    text-align: center;
-    margin-top: 30px;
+    height: 35px;
 }
 
-.articleTitle:hover, .articleTitle:focus {
-    text-decoration: none;
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
 }
 
-.adminTable {
-    margin-top: 20px;
-    margin-bottom: 20px;
+.form-signin .form-floating:focus-within {
+    z-index: 2;
 }
 
-#errorPanel {
-    padding-top: 30px;
-    padding-bottom: 10px;
+.form-signin input[type="name"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
