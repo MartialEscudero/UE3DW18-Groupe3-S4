@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0">
+    <channel>
+        <title>{{ rss.title }}</title>
+        <description><![CDATA[{{ rss.description }}]]></description>
+        <lastBuildDate>{{ rss.buildDate }}</lastBuildDate>
+        <link>{{ url('home') }}</link>
+
+        {% for link in rss.links %}
+        <item>
+            <title>{{ link.title }}</title>
+            <description><![CDATA[{{ link.desc }}]]></description>
+            <author>anonymous@anonymous ({{ link.user.username }})</author>
+
+            {% for tag in link.tags %}
+            <category>{{ tag.title }}</category>
+            {% endfor %}
+
+            <link>{{ url('link', { 'id': link.id }) }}</link>
+            <guid isPermaLink="true">{{ url('link', { 'id': link.id }) }}</guid>
+        </item>
+        {% endfor %}
+        
+    </channel>
+</rss>
+

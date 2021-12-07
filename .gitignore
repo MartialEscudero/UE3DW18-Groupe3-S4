@@ -1,0 +1,4 @@
+vendor/
+composer.lock
+var/logs/*.log
+workspace.code-workspace
