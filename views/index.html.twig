@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <h1 class="fw-bold">{{ link.title }}</h1>
                         <p><em>par <span> {{ link.user.username }}</span></em></p> 
-                        <p><a title="Site Officiel" class="text-success" href="{{ link.url }}" target="_blank">Site Officiel</a> {% for tag in link.tags %}<a class="float-end text-danger" href="{{ path('tag', { 'id': tag.id }) }}" title="Filtrer"> {{ tag.title }}</a>{% endfor %}</p>
+                        <p><a title="Site Officiel" class="text-success" href="{{ link.url }}" target="_blank">Site Officiel</a> {% for tag in link.tags %}<a class="float-end text-muted" href="{{ path('tag', { 'id': tag.id }) }}" title="Filtrer"> {{ tag.title }}</a>{% endfor %}</p>
                         <hr class="my-4">
                         <p class="desc mt-3">{{ link.desc | truncate(50) }}</p>
                         <a href="{{ path('link', { 'id': link.id }) }}">
