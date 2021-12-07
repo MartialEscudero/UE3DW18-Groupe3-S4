@@ -25,14 +25,14 @@
         <a href="{{ path('admin_link_add') }}"><button type="button" class="btn btn-primary"><span class="bi bi-plus-square"></span> Add link</button></a>
         {% if links %}
         <div class="table-responsive">
-            <table id="pagination" class="table table-hover table-condensed">
+            <table class="table table-hover table-condensed" data-toggle="table" data-pagination="true" data-search="true">
                 <thead>
                     <tr>
                         <th data-sortable="true" data-field="id">Id</th>
                         <th data-sortable="true" data-field="title">Title</th>
-                        <th data-sortable="true" data-field="author">Author</th>
+                        <th data-sortable="true" data-field="author" >Author</th>
                         <th>Description</th>
-                        <th></th>  <!-- Actions column -->
+                        <th data-align="right"></th>  <!-- Actions column -->
                     </tr>
                 </thead>
                 {% for link in links %}
@@ -45,7 +45,6 @@
                         <a href="{{ path('admin_link_edit', { 'id': link.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="bi bi-pencil-square"></span></a>
                         <button type="button" class="btn btn-danger btn-xs" title="Delete" data-bs-toggle="modal" data-bs-target="#linkDialog{{ link.id }}"><span class="bi bi-trash"></span>
                         </button>
-
                         <!-- Modal -->
                         <div class="modal fade" id="linkDialog{{ link.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -64,6 +63,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Modal end -->
                     </td>
                 </tr>
                 {% endfor %}
@@ -78,11 +78,11 @@
         <a href="{{ path('admin_user_add') }}"><button type="button" class="btn btn-primary"><span class="bi bi-plus-square"></span> Add user</button></a>
         {% if users %}
         <div class="table-responsive">
-            <table class="table table-hover table-condensed">
+            <table class="table" data-toggle="table" data-classes="table-hover">
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th></th>  <!-- Actions column -->
+                        <th data-align="right"></th>  <!-- Actions column -->
                     </tr>
                 </thead>
                 {% for user in users %}
