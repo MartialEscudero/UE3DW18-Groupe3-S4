@@ -13,9 +13,41 @@ class HomeController {
      *
      * @param Application $app Silex application
      */
-    public function indexAction(Application $app) {
-        $links = $app['dao.link']->findAll();
-        return $app['twig']->render('index.html.twig', array('links' => $links));
+    public function indexAction(?string $n, Request $request, Application $app) {
+        // Throw 404 if not a number
+        if(!is_numeric(filter_var($n, FILTER_SANITIZE_NUMBER_INT)) && !is_null($n)){
+            throw new \Exception("Not found", 404);        
+        }
+
+        //the total number of links
+        $linkNumber = $links = $app['dao.link']->findNumberLinks();
+        //round up the division to get the number of page
+        $nbPages = ceil($linkNumber/6);
+
+        //Render a page of 6 links
+        if(!is_null($n)){
+            $links = $app['dao.link']->findAllPage((int) $n);
+
+            //Trow 404 error if the result from database is empty
+            if(empty($links))
+                throw new \Exception("No link found", 404);
+                
+            return $app['twig']->render('index.html.twig', array(
+                'links' => $links,
+                'linkNumber' => $linkNumber,
+                'currentPage' => $n,
+                'nbPages' => $nbPages
+            ));
+        }
+
+        //The homepage return the last 6 links
+        $links = $app['dao.link']->findAllPage(0);
+        return $app['twig']->render('index.html.twig', array(
+            'links' => $links,
+            'currentPage' => 1,
+            'linkNumber' => $linkNumber,
+            'nbPages' => $nbPages
+        ));
     }
 
     /**
@@ -75,6 +107,11 @@ class HomeController {
      * @param Application $app Silex application
      */
     public function rssFeedAction(?string $number, Request $request, Application $app) {
+        // Throw 404 if not a number
+        if(!is_numeric(filter_var($number, FILTER_SANITIZE_NUMBER_INT)) && !is_null($number)){
+            throw new \Exception("Not found", 404);        
+        }
+
         //build the rss text
         $rss = $app['dao.rss']->getRSS($number);
 

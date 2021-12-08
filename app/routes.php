@@ -3,6 +3,9 @@
 // Home page
 $app->get('/', "Watson\Controller\HomeController::indexAction")->bind('home');
 
+// Home page pagination
+$app->get('/page/{n}', "Watson\Controller\HomeController::indexAction");
+
 // Detailed info about a link
 $app->match('/link/{id}', "Watson\Controller\HomeController::linkAction")->bind('link');
 

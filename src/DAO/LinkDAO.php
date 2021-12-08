@@ -47,6 +47,45 @@ class LinkDAO extends DAO
     }
 
     /**
+     * Return a list of all links by page, sorted by date (most recent first).
+     *
+     * @return array A list of all links.
+     */
+    public function findAllPage(int $page) {
+        $sql = "
+            SELECT * 
+            FROM tl_liens 
+            ORDER BY lien_id DESC LIMIT 6 OFFSET ?
+        ";
+        $offset = ($page == 0) ? 0 : ($page-1) * 6;
+        $result = $this->getDb()->fetchAll($sql, array($offset), array("integer"));
+
+        // Convert query result to an array of domain objects
+        $_links = array();
+        foreach ($result as $row) {
+            $linkId          = $row['lien_id'];
+            $_links[$linkId] = $this->buildDomainObject($row);
+        }
+        return $_links;
+    }
+
+     /**
+     * Return the number of links in database
+     *
+     * @return int the number of links
+     */
+    public function findNumberLinks() {
+        $sql = "
+            SELECT COUNT(DISTINCT lien_id) 
+            FROM tl_liens
+        ";
+        
+        $result = $this->getDb()->fetchColumn($sql);
+
+        return $result;
+    }
+
+    /**
      * Return a certain number of last links, sorted by date (most recent first).
      *
      * @param integer $number the number of links desired

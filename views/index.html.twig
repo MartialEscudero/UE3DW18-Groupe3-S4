@@ -21,4 +21,48 @@
 			</div>
 		{% endfor %}
 	</div>
+
+    {# S'il y a plus d'une page de liens #}
+    {% if nbPages > 1 %}
+
+    {# Le nombre d'éléments proche de la page active + 1 #}
+    {% set pageOffset = 3 %}
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            
+            {% if currentPage != 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url('home') }}page/{{ currentPage-1 }}">Précédent</a>
+                </li>
+            {% endif %}
+
+            {% for i in 1..nbPages %}
+                {# Si on est sur la page offset à gauche de la page active, on affiche trois points #}
+                {% if 0 == (currentPage - pageOffset) - loop.index  %}
+                    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                {# Si on est sur la page offset à droite de la page active, on affiche trois points #}
+                {% elseif 0 == (currentPage + pageOffset) - loop.index %}
+                    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                {# On oublie les pages à gauche et droite en trop #}
+                {% elseif 0 < (currentPage - pageOffset) - loop.index %}
+                {% elseif 0 > (currentPage + pageOffset) - loop.index %}
+                {# Dans les autres cas, on affiche le numéro de page #}
+                {% else %}
+                    <li {% if currentPage == loop.index  %} class="page-item active"{% endif %}>
+                        <a class="page-link" href="{{ url('home') }}page/{{ loop.index }}">{{ loop.index }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if currentPage != nbPages %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url('home') }}page/{{ currentPage+1 }}">Suivant</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    {% endif %}
+
 {% endblock %}
