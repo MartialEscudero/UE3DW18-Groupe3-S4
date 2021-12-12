@@ -3,16 +3,11 @@
 {% block title %}{{ link.title }}{% endblock %}
 
 {% block content %}
-<p>
-    <h2>{{ link.title }}</h2>
-    <p>{{ link.desc }}</p>
-    <a href="{{ link.url }}" title="" target="_blank">Open ></a>
-    <em>(by {{ link.user.username }})</em>
-
-    {% for tag in link.tags %}
-    	<a href="{{ path('tag', { 'id': tag.id }) }}" title="Filtrer">
-    		{{ tag.title }}
-    	</a>
-    {% endfor %}
-</p>
+<div class="row">
+    <h1 class="fw-bold text-center mt-5">{{ link.title }}</h2>
+    <p class="text-center mt-1"><em>par <span> {{ link.user.username }}</span></em></p>
+    <p class="mt-5">{{ link.desc }}</p>
+    <hr class="my-4 mt-5">
+    <p><a title="Site Officiel" class="text-success" href="{{ link.url }}" target="_blank">Site Officiel</a> {% for tag in link.tags %}<a class="float-end text-muted" href="{{ path('tag', { 'id': tag.id }) }}" title="Filtrer"> {{ tag.title }}</a>{% endfor %}</p>
+</div>
 {% endblock %}
