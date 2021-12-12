@@ -11,17 +11,19 @@
 			</p>
 		{% else %}
 			{% for link in links %}
-				<div class="col-md-4">
-				    <h2><a class="linkTitle" href="{{ path('link', { 'id': link.id }) }}">{{ link.title }}</a></h2>
-				    <p>{{ link.desc }}</p>
-				    <a href="{{ link.url }}" title="" target="_blank">Open ></a>
-				    <em>(by {{ link.user.username }})</em>
-				    {% for tag in link.tags %}
-				    	<a href="{{ path('tag', { 'id': tag.id }) }}" title="Filtrer">
-				    		{{ tag.title }}
-				    	</a>
-				    {% endfor %}
-				</div>
+                <div class="col-lg-4 col-md-6 col-sm-12 d-grid gap-5 mb-5 mt-5">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <h1 class="fw-bold">{{ link.title }}</a></h1>
+                            <p><a title="Site Officiel" class="text-success" href="{{ link.url }}" target="_blank">Site Officiel</a> {% for tag in link.tags %}<a class="float-end text-muted" href="{{ path('tag', { 'id': tag.id }) }}" title="Filtrer"> {{ tag.title }}</a>{% endfor %}</p>
+                            <hr class="my-4">
+                            <p class="desc mt-3">{{ link.desc | truncate(50) }}</p>
+                            <a href="{{ path('link', { 'id': link.id }) }}">
+                                <button title="Lire plus" class="float-end btn btn-secondary">Lire plus <i class="bi bi-box-arrow-up-right"></i></button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 			{% endfor %}
 		{% endif %}
 	</div>
